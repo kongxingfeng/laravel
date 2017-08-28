@@ -12,5 +12,8 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Routing\Controller;
 
 class DomeController extends Controller {
-
+        public function aa()
+        {
+            
+        }
 }
