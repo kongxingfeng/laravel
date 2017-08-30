@@ -25,6 +25,14 @@ Route::get('/invest','\App\Http\Controllers\Home\InvestController@index');
 
 Route::get('/logout','\App\Http\Controllers\Home\LoginController@logout');
 
+/**
+ * 后台
+ */
+Route::get('/adminindex','\App\Http\Controllers\Admin\AdminIndexController@index');
+Route::get('/adminlogin','\App\Http\Controllers\Admin\AdminLoginController@index');
+Route::get('/adminborrow','\App\Http\Controllers\Admin\AdminIndexController@borrow');
+
+
 
 
 
