@@ -38,15 +38,19 @@
 <div class="zxcf_nav_wper">
     <div class="zxcf_nav clearfix px1000">
         <div class="zxcf_nav_l fl"><img src="images/zxcf_logo.png" alt=""></div>
-        <div class="zxcf_nav_r fr">
+        <div class="" style="float: right ;padding-top: 20px">
             <img src="images/zxcf_perinfo.png" alt="">
-		 	<span>我的账户
-		 	<img src="images/zxcf_icon01.png" alt=""></span>
-            <ul class="zxcf_perinfo" style="display:none;">
-                <li><a href="">111</a></li>
-                <li><a href="">111</a></li>
-                <li><a href="">111</a></li>
-            </ul>
+            @if (\Auth::check())
+               {{ \Auth::user()->name }}   &nbsp;&nbsp;&nbsp;<a href="/logout">退出</a>
+
+            @else
+                <span>未登录
+                    <img src="images/zxcf_icon01.png" alt=""></span>
+
+            @endif
+
+
+
         </div>
     </div>
 </div>

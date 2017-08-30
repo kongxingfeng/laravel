@@ -15,8 +15,17 @@ Route::get('/', function () {
     return view('index.index');
 });
 
-Route::get('/login','\App\Http\Controllers\Home\LoginController@login');
+
+Route::get('/login','\App\Http\Controllers\Home\LoginController@index');
+Route::post('/addlogin','\App\Http\Controllers\Home\LoginController@addlogin');
 Route::get('/register','\App\Http\Controllers\Home\LoginController@register');
+Route::post('/addRegister','\App\Http\Controllers\Home\LoginController@addRegister');
 Route::get('/borrow','\App\Http\Controllers\Home\BorrowController@index');
 Route::get('/invest','\App\Http\Controllers\Home\InvestController@index');
+
+Route::get('/logout','\App\Http\Controllers\Home\LoginController@logout');
+
+
+
+
 
