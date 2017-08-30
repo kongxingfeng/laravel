@@ -32,6 +32,8 @@ class LoginController extends Controller{
     }
     public function addRegister()
     {
+       
+        
 
         $this->validate(request(),[
             'name' => 'required|min:3|unique:users,name',
@@ -39,11 +41,13 @@ class LoginController extends Controller{
             'tel' => 'required|digits:11',
             'password' => 'required|min:5|confirmed',
         ]);
+       
 
         $password = bcrypt(request('password'));
         $name = request('name');
         $email = request('email');
         $tel = request('tel');
+       
 
 
         $user = \App\User::create(compact('name', 'email', 'password','tel'));
