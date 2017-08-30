@@ -77,7 +77,7 @@
 
 		$.ajax({
 		   type: "GET",
-		   url: "/adminborrow",
+		   url: "/admin/adminborrow",
 		   data: {type:type,id:id},
 		   success: function(msg){
          obj.parent().parent().parent().prev().html(msg);
