@@ -14,40 +14,34 @@ use App\Admin;
 class AdminLoginController extends Controller
 {
 
-	public function index()
-	{
-		return view('adminIndex/login');
-	}
+    public function index()
+    {
+        return view('adminIndex/login');
+    }
+    public function adminadd(Request $request)
+    {
 
-	public function adminadd(Request $request)
-            { 
-                    	
-                        $this->validate($request, [
-                            'name' => 'required',
-                            'password' => 'required|min:3|max:30',
-                            'is_remember' =>'integer',
-                        ]
-        );
+        $this->validate($request, [
+            'name' => 'required',
+            'password' => 'required|min:3|max:30',
+            'is_remember' =>'integer',
+        ]);
 
-
-         $user = request(['name', 'password']);
-		
-
-
+        $user = request(['name', 'password']);
 
         $remember = boolval(request('is_remember'));
-       
+
         if (true == \Auth::guard('admin')->attempt($user)) {
             return redirect('/admin/adminindex');
         }
-		else
-		{
-			//return redirect('/adminindex');
-			return \Redirect::back()->withErrors("用户名密码错误");
-		}
+        else
+        {
+            //return redirect('/adminindex');
+            return \Redirect::back()->withErrors("用户名密码错误");
+        }
 
         //echo 1;
-       
+
     }
 
     /**

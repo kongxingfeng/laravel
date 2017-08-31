@@ -15,6 +15,7 @@ class AdminIndexController extends Controller{
 	{
 		return view('adminIndex/index');
 	}
+
 	//审核借款人
 	public function borrow()
 	{
@@ -44,5 +45,6 @@ class AdminIndexController extends Controller{
 		
 	}
 	
+
 
 }
