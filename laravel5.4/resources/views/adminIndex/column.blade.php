@@ -70,13 +70,8 @@
 		var type=$("#status").data('id');
 		$.ajax({
 		   type: "GET",
-<<<<<<< HEAD
 		   url: "/adminborrowad",
 		   data: {type:type},
-=======
-		   url: "/admin/adminborrow",
-		   data: {type:type,id:id},
->>>>>>> zy
 		   success: function(msg){
 		     alert(msg);
 		   }

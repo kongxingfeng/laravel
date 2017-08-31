@@ -18,14 +18,16 @@ class AdminLoginController extends Controller
 	{
 		return view('adminIndex/login');
 	}
+
 	public function adminadd(Request $request)
-    { 
-    	
-        $this->validate($request, [
-            'name' => 'required',
-            'password' => 'required|min:3|max:30',
-            'is_remember' =>'integer',
-        ]);
+            { 
+                    	
+                        $this->validate($request, [
+                            'name' => 'required',
+                            'password' => 'required|min:3|max:30',
+                            'is_remember' =>'integer',
+                        ]
+        );
 
 
          $user = request(['name', 'password']);
@@ -34,7 +36,6 @@ class AdminLoginController extends Controller
 
 
         $remember = boolval(request('is_remember'));
-       
        
         if (true == \Auth::guard('admin')->attempt($user)) {
             return redirect('/admin/adminindex');
