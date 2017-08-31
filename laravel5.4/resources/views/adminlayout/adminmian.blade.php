@@ -21,12 +21,12 @@
   <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
   <h2><span class="icon-user"></span>用户设置</h2>
   <ul style="display:block">
-    <li><a href="/adminborrow"><span class="icon-caret-right"></span>用户审核</a></li>
+    <li><a href="/admin/adminborrow"><span class="icon-caret-right"></span>用户审核</a></li>
   </ul>   
   <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
   <ul>
-    <li><a href="list.html"><span class="icon-caret-right"></span>内容管理</a></li>
-    <li><a href="add.html"><span class="icon-caret-right"></span>添加内容</a></li>
+    <li><a href="/admin/adminlist"><span class="icon-caret-right"></span>内容管理</a></li>
+    <li><a href="/admin/admingoodsadd"><span class="icon-caret-right"></span>添加内容</a></li>
     <li><a href="cate.html" ><span class="icon-caret-right"></span>分类管理</a></li>        
   </ul>  
 </div>

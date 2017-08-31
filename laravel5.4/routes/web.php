@@ -54,6 +54,14 @@ Route::group(['prefix' => 'admin'], function() {
 
 	Route::get('/adminborrow','\App\Http\Controllers\Admin\AdminIndexController@borrow');
 
+
+	Route::get('/admingoodsadd','\App\Http\Controllers\Admin\AdminIndexController@goodsAdd');
+	Route::get('/adminlist','\App\Http\Controllers\Admin\AdminIndexController@goodsList');
+	Route::post('/adminadd_do','\App\Http\Controllers\Admin\AdminIndexController@goodsAdd_do');
+	Route::get('/goodsupda','\App\Http\Controllers\Admin\AdminIndexController@goodsUpda');
+	Route::post('/adminupda_do','\App\Http\Controllers\Admin\AdminIndexController@goods_Upda');
+	Route::get('/admindelete','\App\Http\Controllers\Admin\AdminIndexController@goods_Dele');
+
 });
 
 
