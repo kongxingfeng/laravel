@@ -20,12 +20,7 @@ class AdminLoginController extends Controller
 	}
 	public function adminadd(Request $request)
     { 
-    	//var_dump(Admin::get()->toArray());die;
     	
-    	// $user = request(['name', 'password']);
-    	// dd($user);
-    	// $arr = request('password');
-    	// echo bcrypt($arr);exit;
         $this->validate($request, [
             'name' => 'required',
             'password' => 'required|min:3|max:30',
@@ -34,13 +29,13 @@ class AdminLoginController extends Controller
 
 
          $user = request(['name', 'password']);
-		//dd($user);
+		
 
 
 
         $remember = boolval(request('is_remember'));
-        // echo $remember;exit;
-        // //var_dump(\Auth::attempt($user,$remember));exit;
+       
+       
         if (true == \Auth::guard('admin')->attempt($user)) {
             return redirect('/admin/adminindex');
         }
