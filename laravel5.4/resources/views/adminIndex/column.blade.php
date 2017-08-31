@@ -15,6 +15,7 @@
     <script src="js/jquery.js"></script>
     <script src="js/pintuer.js"></script>  
 </head>
+
 <body>
 <div class="panel admin-panel">
   <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
@@ -33,11 +34,12 @@
       <th>借款描述</th>
       <th>手机号</th>
       <th>借款情况</th>
+      <th>还款时间</th>
       <th width="250">操作</th>
     </tr>
   @foreach($data as $dat)
 		<tr>
-      <td>{{$dat->id}}</td>   
+      <td >{{$dat->id}}</td>   
       <td>{{$dat->bor_name}}</td>
       <td>{{$dat->bor_money}}</td>
       <td>{{$dat->bor_month}}</td>
@@ -48,15 +50,16 @@
       <td>{{$dat->bor_text}}</td>
       <td>{{$dat->tel}}</td>
       <td>{{$dat->case}}</td>
+      <td><span class="endtime">{{$dat->bor_etime}}</span></td>
       <td>
       <div class="button-group"> 
-       <a class="button border-blue" data-id="{{$dat->status}}" href="javascript:void(0)" id="status"><span>
-       	@if($dat->status==0)
-   		未审核
+       <span>
+      @if($dat->status==0)
+   		<a class="button border-blue" data-u="{{$dat->id}}"  data-id="{{$dat->status}}" href="javascript:void(0)" id="status">未审核</a>
    		@else
-   		已审核
+   		<a class="button border-blue" data-u="{{$dat->id}}" data-id="{{$dat->status}}" href="javascript:void(0)" id="status">已审核</a>
        	@endif
-       </span></a>
+       </span>
       </div>
       </td>
     </tr> 
@@ -67,13 +70,19 @@
 
 <script>
 	$(document).on('click','#status',function(){
-		var type=$("#status").data('id');
+		var type=$(this).data('id');
+    var id = $(this).data('u');
+    var obj = $(this);
+    //var id = $(".id").html();
+
 		$.ajax({
 		   type: "GET",
-		   url: "/adminborrowad",
-		   data: {type:type},
+      url: "/admin/adminborrow",
+		   data: {type:type,id:id},
+
 		   success: function(msg){
-		     alert(msg);
+         obj.parent().parent().parent().prev().html(msg);
+          obj.html('已审核');
 		   }
 		});
 	});

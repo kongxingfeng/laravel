@@ -33,6 +33,9 @@ Route::group(['prefix' => 'admin'], function() {
 	Route::get('/adminborrowad','\App\Http\Controllers\Admin\AdminIndexController@borrowad');
 	Route::post('/adminadd','\App\Http\Controllers\Admin\AdminLoginController@adminadd');
 	Route::get('/adminlayout','\App\Http\Controllers\Admin\AdminLoginController@adminlogout');
+
+	Route::get('/adminborrow','\App\Http\Controllers\Admin\AdminIndexController@borrow');
+
 });
 
 
