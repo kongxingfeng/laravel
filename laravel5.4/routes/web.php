@@ -23,7 +23,24 @@ Route::post('/addRegister','\App\Http\Controllers\Home\LoginController@addRegist
 Route::get('/borrow','\App\Http\Controllers\Home\BorrowController@index');
 Route::get('/invest','\App\Http\Controllers\Home\InvestController@index');
 Route::get('/logout','\App\Http\Controllers\Home\LoginController@logout');
+
 Route::post('/borrow_add','\App\Http\Controllers\Home\BorrowController@add');
+
+
+
+/*
+ * 我要借款
+ * 首页
+ */
+
+//投资展示页面
+Route::any('/invest/select','\App\Http\Controllers\Home\InvestController@select');
+//支付表单页面
+Route::any('/add','\App\Http\Controllers\Home\InvestController@add');
+//支付添加页面
+Route::any('/invest/invest','\App\Http\Controllers\Home\InvestController@invest');
+
+//后台模块
 
 Route::group(['prefix' => 'admin'], function() {
 
@@ -33,6 +50,7 @@ Route::group(['prefix' => 'admin'], function() {
 	Route::get('/adminborrowad','\App\Http\Controllers\Admin\AdminIndexController@borrowad');
 	Route::post('/adminadd','\App\Http\Controllers\Admin\AdminLoginController@adminadd');
 	Route::get('/adminlayout','\App\Http\Controllers\Admin\AdminLoginController@adminlogout');
+
 
 	Route::get('/adminborrow','\App\Http\Controllers\Admin\AdminIndexController@borrow');
 
