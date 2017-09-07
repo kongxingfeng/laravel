@@ -10,8 +10,16 @@
             <p>累计成交：<strong>12亿2332万元</strong></p>
             <p>运营时间：<strong>123天</strong></p>
             <p><strong>24</strong>小时成功转让率<strong>12.12%</strong></p>
-            <a href="/login" class="btn btn1">立即登录</a><br>
-            <a href="/register" class="btn btn2">立即注册</a>
+            @if (\Auth::check() || session('qid')!='')
+                     <p><strong>加入熊猫</strong></p>
+                     <p><strong>开启您的财富自由之路</strong></p>
+                     <p><strong>铸就辉煌人生!</strong></p>
+            @else
+                 <a href="/login" class="btn btn1">立即登录</a><br>
+                 <a href="/register" class="btn btn2">立即注册</a>
+            @endif
+          
+
         </div>
     </div>
 </div>
