@@ -37,7 +37,6 @@ if(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid'])){
     <!-- <link rel="stylesheet/less" type="text/css" href="css/style.less" /> -->
     <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/all.js"></script>
-
     <!-- 在线客服 -->
     <script src='http://home.wolive.cc/assets/js/index/kefu_online.js'></script>
        <!--[if IE 6]>
