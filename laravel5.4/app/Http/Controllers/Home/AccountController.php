@@ -110,7 +110,7 @@ class AccountController extends Controller {
         ];
     }
        
-        // print_r($info);die;
+         // print_r($info);die;
         return view('account/index',$info);
         
     }

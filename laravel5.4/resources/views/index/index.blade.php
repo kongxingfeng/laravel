@@ -61,79 +61,53 @@
         </div>
 
         <!-- end block1 -->
-        <div class="zscf_block2 mt30 clearfix ">
-            <div class="zscf_block2_l fl">
-                <div class="block2_biao clearfix">
-                    <div class="clearfix">
-                        <span class="fl">测试标【2132312】</span>
-                        <div class="block2_biao_r fr">
-                            <div class="tjxm_jindu ">
+        @foreach($data as $val)
+            <div class="zscf_block2 mt30 clearfix ">
 
-                                <div class="press_eiper fl">
-                                    <div class="press">
+                <div class="zscf_block2_l fl">
+                    @foreach($val as $v)
+                        <div class="block2_biao clearfix">
+                            <div class="clearfix">
+                                <span class="fl">{{$v->g_name}}</span>
+                                <div class="block2_biao_r fr">
+                                    <div class="tjxm_jindu ">
 
+                                        <div class="press_eiper fl">
+                                            <div class="press">
+
+                                            </div>
+                                        </div>
+                                        <span class="fl">{{$v->inter}}</span>
                                     </div>
                                 </div>
-                                <span class="fl">11%</span>
                             </div>
+                            <ul class="clearfix clear block2_biao_ul">
+                                <li>起投资金：<em>{{$v->min_money}}</em></li>
+                                <li><img src="images/bao.png" alt="">年华收益：<strong>{{$v->inter}}</strong>
+                                </li>
+                                <li>
+                                    产品期限：<span>{{$v->month}}天</span>
+                                </li>
+                                <li>
+                                    <a href="/add?id={{$v->id}}" class="invest_btn">立即投资</a>
+                                </li>
+                            </ul>
                         </div>
-                    </div>
-                    <ul class="clearfix clear block2_biao_ul">
-                        <li>起投资金：<em>100元</em></li>
-                        <li><img src="images/bao.png" alt="">年华收益：<strong>6+6<i>%</i></strong>
-                        </li>
-                        <li>
-                            产品期限：<span>7天</span>
-                        </li>
-                        <li>
-                            借款金额：<span>2000000元</span>
-                        </li>
-                        <li>
-                            <a href="" class="invest_btn">立即投资</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="block2_biao2 clearfix">
-                    <div class="clearfix">
-                        <span class="fl">测试标【2132312】</span>
-                        <div class="block2_biao_r fr">
-                            <div class="tjxm_jindu ">
 
-                                <div class="press_wper fl">
-                                    <div class="press">
+                    @endforeach
+                </div>
 
-                                    </div>
-                                </div>
-                                <span class="fl">11%</span>
-                            </div>
-                        </div>
+                <!-- end left -->
+                <div class="zscf_block2_r fl">
+                    <div class="block2_r_video">
+                        <!-- <img src="images/video.png" alt=""> -->
+                        <embed src="" type="" width="250px;" height="180px;">
                     </div>
-                    <ul class="clearfix clear block2_biao_ul">
-                        <li>起投资金：<em>100元</em></li>
-                        <li><img src="images/bao.png" alt="">年华收益：<strong>6+6<i>%</i></strong>
-                        </li>
-                        <li>
-                            产品期限：<span>7天</span>
-                        </li>
-                        <li>
-                            借款金额：<span>2000000元</span>
-                        </li>
-                        <li>
-                            <a href="" class="invest_btn">立即投资</a>
-                        </li>
-                    </ul>
+                    <div class="block2_r_tip">{{$val[0]->cate}}.{{$val[0]->cate_note}}</div>
                 </div>
+                <!-- end right -->
             </div>
-            <!-- end left -->
-            <div class="zscf_block2_r fl">
-                <div class="block2_r_video">
-                    <!-- <img src="images/video.png" alt=""> -->
-                    <embed src="" type="" width="250px;" height="180px;">
-                </div>
-                <div class="block2_r_tip">1分钟让你了解中兴财富</div>
-            </div>
-            <!-- end right -->
-        </div>
+            @endforeach
         <!--  end block2 -->
         <div class="zscf_block3 mt30 ">
             <h2 class="block3_tit clearfix"><span class="block3_curspan">项目列表</span><em><img src="images/shu.png" alt=""></em><span>债权转让</span><a href="">更多></a></h2>

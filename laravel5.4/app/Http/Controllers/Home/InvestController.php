@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Request;
+use Illuminate\Support\Facades\Input;
 
 
 //use App\Models\Earnings;
@@ -21,35 +22,81 @@ class InvestController extends Controller
 
     public function index()
     {
-        //项目收益
-        $earnings = DB::table('pro_earnings')
-            ->get();
-        //数据 返回值是对象
-        $gain = DB::table('gain')
-            ->get();
-        $arr = [
-            'earnings' => $earnings,
-            'gain' => $gain
-        ];
-        return view('invest/index',$arr);
+        $limits = 2;//一页显示两条数据
+        $page = Input::get('page')?Input::get('page'):1;//当前页
+        $count = count(DB::table('gain')->get());//总条数
+        $total = ceil($count/$limits);//总页数
+        $offest = ($page-1)*$limits;//计算偏移量
+
+        if(Request::ajax()){
+            $earningsId = Input::get('earnings');//理财收益
+            $limit = Input::get('limit');//理财期限
+            if ($earningsId || $limit) {
+                $where = '';
+                if($earningsId && $limit) {
+                    $earnings = DB::table('pro_earnings')
+                        ->where('id',$earningsId)
+                        ->first()
+                        ->name;
+                    $earningsArr = explode('-',$earnings);
+                    $limitArray = explode('-',$limit);
+                    $where = "inter >= $earningsArr[0] AND inter <= $earningsArr[1] AND month >= $limitArray[0] AND month <= $limitArray[1]";
+                }elseif ($earningsId) {
+                    $earnings = DB::table('pro_earnings')
+                        ->where('id',$earningsId)
+                        ->first()
+                        ->name;
+                    $earningsArr = explode('-',$earnings);
+                    $where = "inter >= $earningsArr[0] AND inter <= $earningsArr[1]";
+                } elseif ($limit) {
+                    $limitArray = explode('-',$limit);
+                    $where = "month >= $limitArray[0] AND month <= $limitArray[1]";
+                }
+                $sql = "SELECT * FROM gain WHERE $where LIMIT ".$offest.','.$limits;
+                $gain= DB::select($sql);
+                $count = count($gain);
+                if($count == 0) {
+                    return 2;
+                }
+            } else {
+                $gain = DB::table('gain')
+                    ->offset($offest)
+                    ->limit($limits)
+                    ->get()
+                    ->toArray();
+            }
+            $lastPage = $page-1>0?$page-1:1;
+            $nextPage = $page+1>=$total?$total:$page+1;
+            $arr = [
+                'gain' => $gain,
+                'total' => $total,//总页
+                'lastPage' =>$lastPage,//当前页
+                'nextPage' =>$nextPage,//当前页
+            ];
+            return json_encode($arr);
+        } else {
+            //项目收益
+            $earnings = DB::table('pro_earnings')
+                ->get();
+            foreach ($earnings as $var) {
+                $varArr = explode('-',$var->name);
+                $var->name = $varArr[0].'%-'.$varArr[1].'%';
+            }
+//            数据 返回值是对象
+            $gain = DB::table('gain')
+                ->offset($offest)
+                ->limit($limits)
+                ->get();
+            $arr = [
+                'earnings' => $earnings,
+                'gain' => $gain,
+                'total' => $total,
+                'page' =>$page
+            ];
+            return view('invest/index',$arr);
+        }
     }
-    //查询
-    public function select()
-    {
-        $requset = Request::all();//接值，返回值是一维数组
-//        理财期限
-        $life = $requset['life'];
-        $earnings_id = $requset['earnings'];
-//        理财收益
-        $earnings = DB::table('pro_earnings')
-            ->where('id',$earnings_id)
-            ->first();
-        $earningsArr = explode('-',$earnings->name);
-        $lifeArr = explode('-',$life);
-        echo '<pre>';
-        print_r($lifeArr);
-    }
-    //支付表单页面
+//    支付表单页面
     public function add()
     {
         

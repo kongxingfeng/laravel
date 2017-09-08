@@ -11,7 +11,7 @@
         <div class="bor_detail">
                 <center>
                      <font size="5px">申请已提交，等待审核中！请耐心等待......</font>
-                     <font size="3px">点击查看我的|<a href="#" class="btn btn-info">借款申请</a></font>
+                     <font size="3px">点击查看我的|<a href="/account" class="btn btn-info">借款申请</a></font>
                 </center>
         </div>
     </div>

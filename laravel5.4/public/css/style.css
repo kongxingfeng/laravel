@@ -977,6 +977,10 @@ body {
   background: url("../images/banner01.png") no-repeat scroll center 0 #ffffff;
   height: 363px;
 }
+.zscf_banner_wper2 {
+  background: url("../images/2.png") no-repeat scroll center 0 #ffffff;
+  height: 363px;
+}
 .zscf_banner {
   position: relative;
 }

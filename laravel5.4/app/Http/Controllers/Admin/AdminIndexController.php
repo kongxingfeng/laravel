@@ -20,18 +20,18 @@ class AdminIndexController extends Controller{
 	//审核借款人
 	public function borrow()
 	{
-		if(!empty($_GET))
+		if($_GET)
 		{
-			//echo 11;
+			
 			$type=$_GET['type'];
-			$id = $_GET['id'];
-			$arr=DB::table('borrow')->where('id',$id)->first();
+			$bor_id= $_GET['bor_id'];
+			$arr=DB::table('borrow')->where('id',$bor_id)->first();
 			if($type==0)
 			{
 			
 				$nowtime = date("Y-m-d H:i:s");//审核时间
 				$bor_etime=date("Y-m-d", strtotime("+".$arr->bor_month." months", strtotime($nowtime)));//还款时间
-				$info=DB::table('borrow')->where('id',$id)->update(['status'=>'1','bor_time'=>$nowtime,'bor_etime'=>$bor_etime]);
+				$info=DB::table('borrow')->where('id',$bor_id)->update(['status'=>'1','bor_time'=>$nowtime,'bor_etime'=>$bor_etime]);
 				if($info)
 				{
 					echo $bor_etime;
@@ -40,7 +40,11 @@ class AdminIndexController extends Controller{
 		}
 		else
 		{
-			$data=DB::table('borrow')->get();
+			
+			$data = DB::table('borrow')
+				           ->leftJoin('bor_img', 'borrow.id', '=', 'bor_img.bor_id')
+				           ->get();
+     
 			return view('adminIndex/column',['data'=>$data]);
 		}
 		

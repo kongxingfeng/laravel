@@ -1,6 +1,7 @@
 ﻿@extends("layout.main")
 
 @section("content")
+
     @include('layout.nav')
     <!-- end  -->
     <div class="bor_banner01">
@@ -54,7 +55,7 @@
                         </div>
                         <!-- end l -->
                         <div class="bor_det_oner fl">
-                            <form method="post" action="/borrow_add">
+                            <form method="post" action="/borrow_add" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <!-- <fieldset> -->
                                 <div>
@@ -92,7 +93,7 @@
                                     <div class="fl">
                                         <span>房屋数量</span>
                                         <input type="hidden" name="bor_type" value="房">
-                                        <input type="text" class="bor_inputbg03 input2 goods_num" name="goods_num"  onkeyup="this.value=this.value.replace(/[^\d]/g,'') "  maxlength="6">>
+                                        <input type="text" class="bor_inputbg03 input2 goods_num" name="goods_num"  onkeyup="this.value=this.value.replace(/[^\d]/g,'') "  maxlength="6">
                                         <font class="errorMsg6" color="red"></font><br><br>
                                         <span>总价值</span>
                                         <input type="text" class="bor_inputbg04 input2 money" name="money">
@@ -100,11 +101,22 @@
                                     </div>
 
                                 </div>
+
+                                 <div class="mt15">
+                                    <label>*上传照片</label>
+                                    <input id="photo" type="file"  multiple="multiple" style="width: 0px;"> 
+                                        <span id="img1"></span>
+                                         <input type="hidden" name="img" value="" id="img">
+                                   
+                                    
+                                </div>
+
                                 <div class="mt15">
                                     <label>*借款用途</label>
                                     <input type="" name="text" class="text">
                                     <font class="errorMsg8" color="red"></font>
                                 </div>
+
                                 <div class="mt15">
                                     <label>*借款描述</label>
                                     <textarea name="bor_text" class="bor_text"></textarea>
@@ -117,11 +129,6 @@
                                     普通借款
                                     <input type="radio" class="input3 case" name="case" value="紧急借款">
                                     紧急借款
-                                </div>
-                                <div class="mt15" >
-                                    <label>*验证码</label>
-                                    <input type="text" class="yanzheng text" >
-
                                 </div>
                                 <div class="mt30">
                                     <label></label>
@@ -217,7 +224,7 @@
                                             <span>汽车数量</span>
                                             <input type="hidden" name="bor_type" value="车">
 
-                                            <input type="text" class=" input2 cgoods_num" name="goods_num" onkeyup="this.value=this.value.replace(/[^\d]/g,'') "  maxlength="6">>
+                                            <input type="text" class=" input2 cgoods_num" name="goods_num" onkeyup="this.value=this.value.replace(/[^\d]/g,'') "  maxlength="6">
                                             <font class="cerrorMsg6" color="red"></font><br><br>
                                             <span>总价值</span>
                                             <input type="text" class="bor_inputbg04 input2 cmoney" name="money">
@@ -225,6 +232,17 @@
                                         </div>
 
                                     </div>
+
+                                        <div class="mt15">
+                                    <label>*上传照片</label>
+                                    <input id="cphoto" type="file"  multiple="multiple"  style="width: 0px;"> 
+                                    
+                                        <span id="cimg1"></span>
+                                        <input type="hidden" name="img" value="" id="cimg">
+                                   
+                                    
+                                </div>
+
                                     <div class="mt15">
                                         <label>*借款用途</label>
                                         <input type="" name="text" class="ctext">
@@ -242,11 +260,6 @@
                                         普通借款
                                         <input type="radio" class="input3 ccase" name="case" value="紧急借款">
                                         紧急借款
-                                    </div>
-                                    <div class="mt15" >
-                                        <label>*验证码</label>
-                                        <input type="text" class="yanzheng ctext" >
-
                                     </div>
                                     <div class="mt30">
                                         <label></label>
@@ -268,12 +281,65 @@
             </div>
         </div>
     </div>
+
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript">
 
-        $(function(){
+        $(function(){         
+//房屋照片 无数新展示
+     $("#photo").change(function(){
+      var form = new FormData();
+      var file = $(this);
+      form.append('img',file[0].files[0]);
+      $.ajax({
+        type: "post",
+        url: "/borrowimg_add",
+        data: form,     
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(result){
+           // alert(result);
+          if(result == 0){
+            alert("文件上传失败");
+            return false;
+          }else{
+            //file.parent().next().html("<img src='uploads/"+result+"' style='width:100px'>");
+            $("#img").val(result);
+             $("#img1").html("&nbsp;&nbsp;&nbsp;&nbsp;<img src='uploads/"+result+"' style='width:100px'>");
+            return true;
+          }
+        }
+     });
+    });
+//车辆照片
+     $("#cphoto").change(function(){
+      var form = new FormData();
+      var file = $(this);
+      form.append('img',file[0].files[0]);
+      $.ajax({
+        type: "post",
+        url: "/borrowimg_add",
+        data: form,     
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(result){
+           // alert(result);
+          if(result == 0){
+            alert("文件上传失败");
+            return false;
+          }else{
+            //file.parent().next().html("<img src='uploads/"+result+"' style='width:100px'>");
+            $("#cimg").val(result);
+             $("#cimg1").html("&nbsp;&nbsp;&nbsp;&nbsp;<img src='uploads/"+result+"' style='width:100px'>");
+            return true;
+          }
+        }
+     });
+    });
+
             //房屋
-            //flag1=flag2=flag3=flag4=flag5=flag6=flag7=flag8=flag9=false;
             flag=false;
             //汽车
             flab=false;
@@ -542,8 +608,11 @@
             //房屋
             //提交表单
             $('.submit').click(function(){
-                
-
+                var img1=$('#img1').html();
+                if(!img1){
+                    alert('请选择图片!');
+                     return false;
+                }
                 if(flag){
                     return true;
                 }else{
@@ -557,6 +626,11 @@
             //车辆
             //提交表单
             $('.csubmit').click(function(){
+                var cimg1=$('#cimg1').html();
+                if(!cimg1){
+                    alert('请选择图片!');
+                     return false;
+                }
                 if(flab){
                     return true;
                 }else{

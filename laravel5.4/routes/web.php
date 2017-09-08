@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index.index');
-});
-
+Route::get('/','\App\Http\Controllers\Home\IndexController@index');
 //登录
 Route::get('/login','\App\Http\Controllers\Home\LoginController@index');
 Route::post('/addlogin','\App\Http\Controllers\Home\LoginController@addlogin');
@@ -28,6 +25,7 @@ Route::get('/invest','\App\Http\Controllers\Home\InvestController@index');
 Route::get('/logout','\App\Http\Controllers\Home\LoginController@logout');
 
 Route::post('/borrow_add','\App\Http\Controllers\Home\BorrowController@add');
+Route::post('/borrowimg_add','\App\Http\Controllers\Home\BorrowController@img_add');
 //我的账户
 Route::get('/account','\App\Http\Controllers\Home\AccountController@index');
 //认证
@@ -43,6 +41,8 @@ Route::get('/sinatui','\App\Http\Controllers\Home\Sina2Controller@sinatui');
 
 //验证码路由
 Route::get('/captcha/{tmp}','\App\Http\Controllers\Home\CodeController@captcha');
+//关于我们
+Route::get('/aboutour','\App\Http\Controllers\Home\AboutourController@show');
 /*
  * 我要借款
  * 首页
@@ -54,6 +54,9 @@ Route::any('/invest/select','\App\Http\Controllers\Home\InvestController@select'
 Route::any('/add','\App\Http\Controllers\Home\InvestController@add');
 //支付添加页面
 Route::any('/invest/invest','\App\Http\Controllers\Home\InvestController@invest');
+
+//实时财务
+Route::get('/money','\App\Http\Controllers\Home\MoneyController@index');
 
 //后台模块
 

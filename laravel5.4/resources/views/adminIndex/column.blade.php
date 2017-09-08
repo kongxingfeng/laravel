@@ -25,7 +25,7 @@
             <tr>
                 <th width="5%">ID</th>
                 <th>借款人</th>
-                <th>借款金额(千元)</th>
+                <th>借款金额(万元)</th>
                 <th>借款日期(月)</th>
                 <th>身份证</th>
                 <th>担保方式</th>
@@ -34,7 +34,9 @@
                 <th>借款描述</th>
                 <th>手机号</th>
                 <th>借款情况</th>
+                 <th>借款证件</th>
                 <th>还款时间</th>
+               
                 <th width="250">操作</th>
             </tr>
             @foreach($data as $dat)
@@ -50,14 +52,18 @@
                     <td>{{$dat->bor_text}}</td>
                     <td>{{$dat->tel}}</td>
                     <td>{{$dat->case}}</td>
+                    <td>
+                        <img src="{{$dat->img}}" style="width:50px">
+                    </td>
                     <td><span class="endtime">{{$dat->bor_etime}}</span></td>
+                    
                     <td>
                         <div class="button-group">
        <span>
       @if($dat->status==0)
-               <a class="button border-blue" data-u="{{$dat->id}}"  data-id="{{$dat->status}}" href="javascript:void(0)" id="status">未审核</a>
+               <a class="button border-blue" data-bor="{{$dat->bor_id}}"  data-id="{{$dat->status}}" href="javascript:void(0)" id="status">未审核</a>
            @else
-               <a class="button border-blue" data-u="{{$dat->id}}" data-id="{{$dat->status}}" href="javascript:void(0)" id="status">已审核</a>
+               <a class="button border-blue" data-bor="{{$dat->bor_id}}" data-id="{{$dat->status}}" href="javascript:void(0)" id="status">已审核</a>
            @endif
        </span>
                         </div>
@@ -70,15 +76,15 @@
 
     <script>
         $(document).on('click','#status',function(){
-            var type=$(this).data('id');
-            var id = $(this).data('u');
             var obj = $(this);
-            //var id = $(".id").html();
+            var type=obj.data('id');
+            var bor_id=obj.data('bor');
+            
 
             $.ajax({
                 type: "GET",
                 url: "/admin/adminborrow",
-                data: {type:type,id:id},
+                data: {type:type,bor_id:bor_id},
 
                 success: function(msg){
                     if(msg)
