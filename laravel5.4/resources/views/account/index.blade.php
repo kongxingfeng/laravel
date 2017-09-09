@@ -115,7 +115,7 @@
                          @endif
                     </div>
                     <div class="name-meg">
-                        <p><span>您的积分为：</span></p>
+                        <p><span>您的积分为：{{$integralNums}}分</span></p>
                          <p>
                             <span>账户余额：</span> 
                             {{$money}} 元
@@ -254,6 +254,7 @@
         </div>
     </div>
 </div>
+<script src="js/jq.js"></script>
     <script>
         $(document).on('click','.bor_status',function(){
            
@@ -279,5 +280,23 @@
             });
         });
 
+        {{--签到--}}
+        $(document).on('click','.qian',function(){
+            $.get('/integral/add',function(msg){
+                if (msg == -1) {
+                    alert('请先登录后再签到');
+                    return false;
+                } else if(msg == -2) {
+                    alert('签到成功');
+                    return false;
+                } else if(msg == -4) {
+                    alert('今天已经签到了');
+                    return false;
+                } else if(msg==2){
+                    alert('签到成功');
+                }
+            },'json');
+        });
     </script>
 @endsection
+
