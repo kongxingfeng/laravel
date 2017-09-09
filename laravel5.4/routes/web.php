@@ -43,6 +43,9 @@ Route::get('/sinatui','\App\Http\Controllers\Home\Sina2Controller@sinatui');
 Route::get('/captcha/{tmp}','\App\Http\Controllers\Home\CodeController@captcha');
 //关于我们
 Route::get('/aboutour','\App\Http\Controllers\Home\AboutourController@show');
+//支付宝支付
+Route::get('/pay','\App\Http\Controllers\Home\AccountController@pay');
+Route::any('/paytwo','\App\Http\Controllers\Home\AccountController@alipayapi');
 /*
  * 我要借款
  * 首页

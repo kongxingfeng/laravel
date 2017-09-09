@@ -121,7 +121,7 @@
                             {{$money}} 元
                          </p>
                          <p>
-                            <a href="#">充值</a>
+                            <a href="/pay">充值</a>
                             <a href="#">提现</a>
                          </p>
                     </div>

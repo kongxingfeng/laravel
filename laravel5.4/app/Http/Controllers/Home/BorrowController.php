@@ -28,7 +28,6 @@ class BorrowController extends Controller {
             
              return view('borrow/index');
         }
-         // return view('borrow/index');
     }
     public function add(Request $request)
     {
