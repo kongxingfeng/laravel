@@ -121,7 +121,11 @@
                             {{$money}} 元
                          </p>
                          <p>
+<<<<<<< HEAD
                             <a href="/pay">充值</a>
+=======
+                            <a href="#">充值</a>
+>>>>>>> 段新宇
                             <a href="#">提现</a>
                          </p>
                     </div>
@@ -205,6 +209,10 @@
                     <li>抵押物</li>
                     <li class="active">数量</li>
                     <li>审核状态</li>
+<<<<<<< HEAD
+=======
+                    <li class="active">操作</li>
+>>>>>>> 段新宇
                 </ul>
                 @if(!empty($borrow->toArray()))
                 @foreach($borrow as $v)
@@ -229,6 +237,20 @@
                         审核中
                         @endif
                     </li>
+<<<<<<< HEAD
+=======
+                    <li>
+                        @if($v->status==1)
+                                    @if($v->bor_status==1)
+                                                已还钱
+                                    @else 
+                                                       <span class="bor_status" id="{{$v->id}}"  bor_status="{{$v->bor_status}}">还钱</span>
+                                    @endif
+                        @else 
+                        审核中
+                        @endif
+                    </li>
+>>>>>>> 段新宇
                 </ul>
                 @endforeach
                 @else 暂无操作
@@ -242,4 +264,33 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+    <script>
+        $(document).on('click','.bor_status',function(){
+           
+            var obj = $(this);
+            var bor_status=obj.attr('bor_status');
+
+            var bor_id=obj.attr('id');
+
+            $.ajax({
+                type: "GET",
+                url: "/account/bor_status",
+                data: {bor_status:bor_status,bor_id:bor_id},
+
+                success: function(msg){
+                    if(msg)
+                    {
+                        // obj.parent().parent().parent().prev().html(msg);
+                         obj.html('已还钱');
+                        obj.attr('bor_status',1);
+                    }
+                   
+                }
+            });
+        });
+
+    </script>
+>>>>>>> 段新宇
 @endsection
