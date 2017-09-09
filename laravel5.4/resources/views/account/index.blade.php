@@ -121,11 +121,7 @@
                             {{$money}} 元
                          </p>
                          <p>
-<<<<<<< HEAD
                             <a href="/pay">充值</a>
-=======
-                            <a href="#">充值</a>
->>>>>>> 段新宇
                             <a href="#">提现</a>
                          </p>
                     </div>
@@ -209,10 +205,7 @@
                     <li>抵押物</li>
                     <li class="active">数量</li>
                     <li>审核状态</li>
-<<<<<<< HEAD
-=======
                     <li class="active">操作</li>
->>>>>>> 段新宇
                 </ul>
                 @if(!empty($borrow->toArray()))
                 @foreach($borrow as $v)
@@ -237,8 +230,6 @@
                         审核中
                         @endif
                     </li>
-<<<<<<< HEAD
-=======
                     <li>
                         @if($v->status==1)
                                     @if($v->bor_status==1)
@@ -250,7 +241,6 @@
                         审核中
                         @endif
                     </li>
->>>>>>> 段新宇
                 </ul>
                 @endforeach
                 @else 暂无操作
@@ -264,8 +254,6 @@
         </div>
     </div>
 </div>
-<<<<<<< HEAD
-=======
     <script>
         $(document).on('click','.bor_status',function(){
            
@@ -292,5 +280,4 @@
         });
 
     </script>
->>>>>>> 段新宇
 @endsection

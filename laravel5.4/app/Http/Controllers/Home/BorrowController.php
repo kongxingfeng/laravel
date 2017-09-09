@@ -28,10 +28,7 @@ class BorrowController extends Controller {
             
              return view('borrow/index');
         }
-<<<<<<< HEAD
-=======
-         // return view('borrow/index');
->>>>>>> 段新宇
+
     }
     public function add(Request $request)
     {
