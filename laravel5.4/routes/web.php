@@ -46,6 +46,8 @@ Route::get('/captcha/{tmp}','\App\Http\Controllers\Home\CodeController@captcha')
 Route::get('/aboutour','\App\Http\Controllers\Home\AboutourController@show');
 Route::get('/pay','\App\Http\Controllers\Home\AccountController@pay');
 Route::any('/paytwo','\App\Http\Controllers\Home\AccountController@alipayapi');
+//积分添加页面
+Route::any('/integral/add','\App\Http\Controllers\Home\IntegralController@add');
 /*
  * 我要借款
  * 首页

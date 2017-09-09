@@ -75,7 +75,15 @@ public $enableCsrfValidation=false;
             $rank='投资人和借款人';
         }
 
-        
+        $integral = DB::table('integral')
+            ->select('grade')
+            ->where('u_id',$user_id)
+            ->get();
+        $integralNums = '';
+        foreach ($integral as $var){
+            $integralNums +=$var->grade;
+        }
+        $integralNums = $integralNums == ''?0:$integralNums;
       
         if(\Auth::check()){
 
@@ -91,8 +99,8 @@ public $enableCsrfValidation=false;
                 'email'=>$user_info[0]->email,
                 'tel'=>$user_info[0]->tel,
                 'created_at'=>$user_info[0]->created_at,
-                'money'=>$user_info[0]->money
-                
+                'money'=>$user_info[0]->money,
+                'integralNums' => $integralNums,
         ];
     }else{
 
@@ -105,7 +113,8 @@ public $enableCsrfValidation=false;
                 'idcard'=>$user_info[0]->idcard,
                 'rank'=>$rank,
                 'name'=>$user_info[0]->name,
-                'money'=>$user_info[0]->money
+                'money'=>$user_info[0]->money,
+                'integralNums' => $integralNums,
                 
         ];
     }
