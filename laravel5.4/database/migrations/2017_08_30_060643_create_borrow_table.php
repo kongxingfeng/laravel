@@ -31,6 +31,7 @@ class CreateBorrowTable extends Migration
             $table->string('bor_time',30)->comment('审核通过时间')->nullable();
             $table->string('bor_etime',30)->comment('到期还款时间')->nullable();
             $table->integer('bor_qian')->comment('到期还款金额(万元)')->nullable();
+            $table->tinyInteger('bor_status')->comment('还钱状态 0未还钱 1 已还钱')->default('0');
             $table->timestamps();
         });
     }

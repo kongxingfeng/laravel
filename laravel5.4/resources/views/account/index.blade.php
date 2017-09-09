@@ -205,6 +205,7 @@
                     <li>抵押物</li>
                     <li class="active">数量</li>
                     <li>审核状态</li>
+                    <li class="active">操作</li>
                 </ul>
                 @if(!empty($borrow->toArray()))
                 @foreach($borrow as $v)
@@ -229,6 +230,17 @@
                         审核中
                         @endif
                     </li>
+                    <li>
+                        @if($v->status==1)
+                                    @if($v->bor_status==1)
+                                                已还钱
+                                    @else 
+                                                       <span class="bor_status" id="{{$v->id}}"  bor_status="{{$v->bor_status}}">还钱</span>
+                                    @endif
+                        @else 
+                        审核中
+                        @endif
+                    </li>
                 </ul>
                 @endforeach
                 @else 暂无操作
@@ -242,4 +254,30 @@
         </div>
     </div>
 </div>
+    <script>
+        $(document).on('click','.bor_status',function(){
+           
+            var obj = $(this);
+            var bor_status=obj.attr('bor_status');
+
+            var bor_id=obj.attr('id');
+
+            $.ajax({
+                type: "GET",
+                url: "/account/bor_status",
+                data: {bor_status:bor_status,bor_id:bor_id},
+
+                success: function(msg){
+                    if(msg)
+                    {
+                        // obj.parent().parent().parent().prev().html(msg);
+                         obj.html('已还钱');
+                        obj.attr('bor_status',1);
+                    }
+                   
+                }
+            });
+        });
+
+    </script>
 @endsection

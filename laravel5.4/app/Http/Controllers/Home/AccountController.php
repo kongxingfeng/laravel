@@ -7,8 +7,8 @@
  */
 
 namespace App\Http\Controllers\Home;
-
 require (app_path() . '/Libs/alipay_submit.class.php');
+
 use App\Http\Controllers\Controller;
 
 use DB;
@@ -115,12 +115,13 @@ public $enableCsrfValidation=false;
         
     }
 
-public function show()
+
+    public function show()
     {
         return view('account/id');
     }
 
-public function id()
+    public function id()
     {
 
     if(\Auth::check()){
@@ -143,7 +144,6 @@ public function id()
                 ->update(array('username' =>$name ,'idcard'=>$idcard));
         }
 
-    //添加图片
          if($input['img']){
              
                $old_img_info=$input['img'];
@@ -174,9 +174,8 @@ public function id()
         
     }
    
+public function verify(){
 
-public function verify()
-{
         
          $input=Request::all();
          $idcard=$input['idcard'];
@@ -247,5 +246,15 @@ echo $html_text;
 
  }
 
-
+    //修改还钱
+    public function bor_status(){
+                        $bor_status=$_GET['bor_status'];//状态
+                        $bor_id= $_GET['bor_id'];//操作ID
+         
+                        $info=DB::table('borrow')->where('id',$bor_id)->update(['bor_status'=>'1']);
+                        if($info)
+                        {
+                            echo 1;
+                        }
+            }
 }
