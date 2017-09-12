@@ -44,10 +44,12 @@ Route::get('/sinatui','\App\Http\Controllers\Home\Sina2Controller@sinatui');
 Route::get('/captcha/{tmp}','\App\Http\Controllers\Home\CodeController@captcha');
 //关于我们
 Route::get('/aboutour','\App\Http\Controllers\Home\AboutourController@show');
+
 Route::get('/pay','\App\Http\Controllers\Home\AccountController@pay');
 Route::any('/paytwo','\App\Http\Controllers\Home\AccountController@alipayapi');
 //积分添加页面
 Route::any('/integral/add','\App\Http\Controllers\Home\IntegralController@add');
+
 /*
  * 我要借款
  * 首页

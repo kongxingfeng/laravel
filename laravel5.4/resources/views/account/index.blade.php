@@ -116,12 +116,14 @@
                     </div>
                     <div class="name-meg">
                         <p><span>您的积分为：{{$integralNums}}分</span></p>
+                        <p><span>您的积分为：</span></p>
                          <p>
                             <span>账户余额：</span> 
                             {{$money}} 元
                          </p>
                          <p>
                             <a href="/pay">充值</a>
+                            <a href="#">充值</a>
                             <a href="#">提现</a>
                          </p>
                     </div>

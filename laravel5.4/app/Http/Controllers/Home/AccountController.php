@@ -74,7 +74,6 @@ public $enableCsrfValidation=false;
 
             $rank='投资人和借款人';
         }
-
         $integral = DB::table('integral')
             ->select('grade')
             ->where('u_id',$user_id)
@@ -99,6 +98,7 @@ public $enableCsrfValidation=false;
                 'email'=>$user_info[0]->email,
                 'tel'=>$user_info[0]->tel,
                 'created_at'=>$user_info[0]->created_at,
+
                 'money'=>$user_info[0]->money,
                 'integralNums' => $integralNums,
         ];
@@ -115,6 +115,23 @@ public $enableCsrfValidation=false;
                 'name'=>$user_info[0]->name,
                 'money'=>$user_info[0]->money,
                 'integralNums' => $integralNums,
+                
+        ];
+                'money'=>$user_info[0]->money
+                
+        ];
+    }else{
+
+         $info=[ 
+                'invest'=>$data,
+                'borrow'=>$arr,
+                'gain'=>$gain,
+                'img'=>$img,
+                'username'=>$user_info[0]->username,
+                'idcard'=>$user_info[0]->idcard,
+                'rank'=>$rank,
+                'name'=>$user_info[0]->name,
+                'money'=>$user_info[0]->money
                 
         ];
     }
@@ -153,6 +170,7 @@ public $enableCsrfValidation=false;
                 ->update(array('username' =>$name ,'idcard'=>$idcard));
         }
 
+//添加图片
          if($input['img']){
              
                $old_img_info=$input['img'];
@@ -185,6 +203,8 @@ public $enableCsrfValidation=false;
    
 public function verify(){
 
+
+public function verify(){
         
          $input=Request::all();
          $idcard=$input['idcard'];
@@ -206,7 +226,6 @@ public function alipayapi()
     require_once "../public/zfb/alipay.config.php";
 
     
-/**************************请求参数**************************/
         //商户订单号，商户网站订单系统中唯一订单号，必填
         $out_trade_no =rand(1,99999);
 
@@ -221,9 +240,6 @@ public function alipayapi()
 
 
 
-
-
-/************************************************************/
 
 //构造要请求的参数数组，无需改动
 $parameter = array(
@@ -266,4 +282,5 @@ echo $html_text;
                             echo 1;
                         }
             }
+
 }

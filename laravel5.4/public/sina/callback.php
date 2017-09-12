@@ -10,12 +10,8 @@ use Illuminate\Http\Request;
 	$keys['redirect_uri']=$url;
 	$Sin =new \SaeTOAuthV2(WB_KEY,WB_SEC);
 	$info=$Sin->getAccessToken($keys,'code');
-
-
-
 	$url="https://api.weibo.com/2/users/show.json?access_token=".$info['access_token']."&uid=".$info['uid'];
 	$arr=file_get_contents($url);
-echo $url;die;
 	$data=json_decode($arr,true);
 
 	session_start();
