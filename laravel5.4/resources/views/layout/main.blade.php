@@ -285,7 +285,7 @@ if(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid'])){
             @if (\Auth::check())
             <a href="/logout"><button class="sure" id="btn1">确定</button></a>
             @elseif(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid']))
-            <a h<a href="/"><button class="sure" id="btn1">确定</button></a>ref="/qqlogout"><button class="sure" id="btn1">确定</button></a>
+            <a href="/qqlogout"><button class="sure" id="btn1">确定</button></a>
             @elseif(isset($_SESSION['sinauid']))
             <a href="/sinatui"><button class="sure" id="btn1">确定</button></a>
             @else
