@@ -10,6 +10,7 @@
                     <div class="clearfix fl">
                         <span class="product_curspan"><img src="images/invest_pic01.png"> 新手体验标</span>
                         <span><img src="images/invest_pic02.png"> 项目列表</span>
+                        <span><img src="images/invest_pic03.png"> 债权转让</span>
                     </div>
 
                 </h2>

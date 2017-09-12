@@ -28,7 +28,6 @@ Route::post('/borrow_add','\App\Http\Controllers\Home\BorrowController@add');
 Route::post('/borrowimg_add','\App\Http\Controllers\Home\BorrowController@img_add');
 //我的账户
 Route::get('/account','\App\Http\Controllers\Home\AccountController@index');
-Route::get('/account/bor_status','\App\Http\Controllers\Home\AccountController@bor_status');
 //认证
 Route::any('/id','\App\Http\Controllers\Home\AccountController@id');
 Route::any('/ss','\App\Http\Controllers\Home\AccountController@show');
@@ -44,10 +43,6 @@ Route::get('/sinatui','\App\Http\Controllers\Home\Sina2Controller@sinatui');
 Route::get('/captcha/{tmp}','\App\Http\Controllers\Home\CodeController@captcha');
 //关于我们
 Route::get('/aboutour','\App\Http\Controllers\Home\AboutourController@show');
-Route::get('/pay','\App\Http\Controllers\Home\AccountController@pay');
-Route::any('/paytwo','\App\Http\Controllers\Home\AccountController@alipayapi');
-//积分添加页面
-Route::any('/integral/add','\App\Http\Controllers\Home\IntegralController@add');
 /*
  * 我要借款
  * 首页

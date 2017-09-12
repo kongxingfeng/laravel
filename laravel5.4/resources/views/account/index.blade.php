@@ -115,13 +115,13 @@
                          @endif
                     </div>
                     <div class="name-meg">
-                        <p><span>您的积分为：{{$integralNums}}分</span></p>
+                        <p><span>您的积分为：</span></p>
                          <p>
                             <span>账户余额：</span> 
                             {{$money}} 元
                          </p>
                          <p>
-                            <a href="/pay">充值</a>
+                            <a href="#">充值</a>
                             <a href="#">提现</a>
                          </p>
                     </div>
@@ -205,7 +205,6 @@
                     <li>抵押物</li>
                     <li class="active">数量</li>
                     <li>审核状态</li>
-                    <li class="active">操作</li>
                 </ul>
                 @if(!empty($borrow->toArray()))
                 @foreach($borrow as $v)
@@ -230,17 +229,6 @@
                         审核中
                         @endif
                     </li>
-                    <li class="active">
-                        @if($v->status==1)
-                                    @if($v->bor_status==1)
-                                                已还钱
-                                    @else 
-                                                       <span class="bor_status" id="{{$v->id}}"  bor_status="{{$v->bor_status}}">还钱</span>
-                                    @endif
-                        @else 
-                        审核中
-                        @endif
-                    </li>
                 </ul>
                 @endforeach
                 @else 暂无操作
@@ -254,49 +242,4 @@
         </div>
     </div>
 </div>
-<script src="js/jq.js"></script>
-    <script>
-        $(document).on('click','.bor_status',function(){
-           
-            var obj = $(this);
-            var bor_status=obj.attr('bor_status');
-
-            var bor_id=obj.attr('id');
-
-            $.ajax({
-                type: "GET",
-                url: "/account/bor_status",
-                data: {bor_status:bor_status,bor_id:bor_id},
-
-                success: function(msg){
-                    if(msg)
-                    {
-                        // obj.parent().parent().parent().prev().html(msg);
-                         obj.html('已还钱');
-                        obj.attr('bor_status',1);
-                    }
-                   
-                }
-            });
-        });
-
-        {{--签到--}}
-        $(document).on('click','.qian',function(){
-            $.get('/integral/add',function(msg){
-                if (msg == -1) {
-                    alert('请先登录后再签到');
-                    return false;
-                } else if(msg == -2) {
-                    alert('签到成功');
-                    return false;
-                } else if(msg == -4) {
-                    alert('今天已经签到了');
-                    return false;
-                } else if(msg==2){
-                    alert('签到成功');
-                }
-            },'json');
-        });
-    </script>
 @endsection
-

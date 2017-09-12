@@ -46,6 +46,155 @@ if(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid'])){
     </script>
     <![endif]-->
 </head>
+<style>
+    
+    body,html{
+        width:100%;
+        height:100%;
+        background: #ccc;
+    }
+
+    .wrap{
+        width:300px;
+        height:80px;
+        float: right;
+        position: relative;
+        
+    }
+    .face{
+        width:80px;
+        height:80px;
+        text-align:center;
+        line-height: 80px;
+        margin-left:200px;
+        box-sizing:border-box;
+    }
+    .face img{
+        display: inline-block;
+        width:50px;
+        height:50px; 
+        border-radius: 50%;
+    }
+    .ha img{
+        width:80px;
+        height:80px;
+        border-radius: 50%;
+    }
+    .exit{
+        width:300px;
+        height:250px;
+        background: #eee;
+        position: absolute;
+        right:20px;
+        top:70px;
+        display: none;
+        z-index:9999;
+    } 
+    .exit dl{
+        width:100%;
+        height:100px;
+        display: flex;
+        padding:10px 20px;
+        box-sizing:border-box;
+    }
+    .exit dl dt{
+        flex:1;
+        width:50px;
+        height:80px;
+        border-radius:50%;
+       
+        text-align:center;
+        line-height: 80px;
+    }
+    .exit dl dd{
+        flex:2;
+        margin-left:20px;
+        line-height: 30px;
+    }
+    .exit dl dd p{
+        margin-top:10px;
+        color:block;
+        font-weight: bold;
+    }
+    .mycon{
+        width:100%;
+        height:120px; 
+        box-sizing:border-box;
+        padding:20px 20px 20px 20px;
+       
+    }
+    .mycon p{
+        width:260px;
+        height:40px;
+        background: #ccc;
+    }
+    .mycon p span{
+        display: inline-block;
+        width:130px;
+        height:40px;
+        line-height: 40px;
+        text-align:center;
+        color:#fff;
+        border-right:2px solid #fff;
+        border-bottom:2px solid #fff;
+        font-size: 14px;
+        box-sizing:border-box;
+    }
+    .mybtn{
+        width:100px;
+        margin-left:200px;
+        color:green;
+        background: none;
+        outline: none;
+        border:none;
+    }
+    .box{
+        width:100%;
+        background:rgba(0,0,0,0.3);
+        position: absolute;
+        left:0;
+        top:0;
+        z-index: 99999;
+        height:100%;
+        display:none;
+    }
+    .center{
+        width:300px;
+        height:300px;
+        background: #fff;
+        position: fixed;
+        left:50%;
+        top:50%;
+        margin-top:-150px;
+        margin-left:-150px;
+        text-align: center;
+    }
+    .center h2{
+        width:100%;
+        height:200px;
+        line-height: 200px;
+        color:black;
+        font-size: 30px;
+    }
+    .center button{
+        width:80px;
+        height:30px;
+        border:none;
+        outline:none;
+        border-radius: 5px;
+        color:#fff;
+    }
+    .sure{
+        background: #ccc;
+        margin-right:10px;
+    }
+    .reset{
+       background:red;
+       margin-left:10px;
+    }
+    
+</style>
+
 <body>
 <!-- header start -->
 <div class="zxcf_top_wper">
@@ -77,8 +226,91 @@ if(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid'])){
 <!-- end top -->
 <div class="zxcf_nav_wper">
     <div class="zxcf_nav clearfix px1000">
-        <div class="zxcf_nav_l fl"><img src="images/u=462566746,3822839051&fm=27&gp=0.jpg" alt="" width="450" height="80"></div>
-        <div class="" style="float: right ;padding-top: 20px">
+        <div class="zxcf_nav_l fl" style="float:left"><img src="images/u=462566746,3822839051&fm=27&gp=0.jpg" alt="" width="450" height="80"></div>
+        <div class="wrap">
+            <p class="face" id="face">
+            @if (\Auth::check())
+            <img src="images/zxcf_perinfo.png" alt="">
+            @elseif(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid']))
+            <img src="{{$data['figureurl']}}">
+            @elseif(isset($_SESSION['sinauid']))
+            <img src="{{$_SESSION['profile_image_url']}}">
+            @else
+            <img src="images/zxcf_perinfo.png" alt="">
+           <!--  <img src="images/1228.png" alt=""> -->
+            @endif
+            </p>
+            <!--把以下内容放在头像元素的后面-->
+            <div class="exit" id="exit">
+                <dl>
+                    <dt>
+                        <p class="ha" id="ha">
+                            @if (\Auth::check())
+                            <img src="images/zxcf_perinfo.png" alt="">
+                            @elseif(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid']))
+                            <img src="{{$data['figureurl']}}">
+                            @elseif(isset($_SESSION['sinauid']))
+                            <img src="{{$_SESSION['profile_image_url']}}">
+                            @else
+                            <img src="images/zxcf_perinfo.png" alt="">
+                            @endif
+                        </p>
+                    </dt>
+                    <dd>
+                      <p>
+                            用户名: 
+                            @if (\Auth::check())
+                            {{ \Auth::user()->name }}
+                            @elseif(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid']))
+                            {{$data['nickname']}}
+                            @elseif(isset($_SESSION['sinauid']))
+                            {{$_SESSION['screen_name']}}
+                            @else
+                            请先登录
+                            @endif
+                    </p>
+                    </dd>
+                </dl>
+                <div class="mycon">
+                    <p><a href="/borrow"><span>我的借款</span></a><a href="/account"><span>我的账户</span></a></p>
+                    <p><a href="/invest"><span>我的投资</span></a><a href="/money"><span>实时财务</span></a></p>
+                </div>
+                <button id="btn" class="mybtn">安全退出</button>
+            </div>
+        </div>
+
+        <div id="box" class="box">
+        <div class="center" id="center">
+            <h2>确定退出吗？</h2>
+            @if (\Auth::check())
+            <a href="/logout"><button class="sure" id="btn1">确定</button></a>
+            @elseif(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid']))
+            <a href="/qqlogout"><button class="sure" id="btn1">确定</button></a>
+            @elseif(isset($_SESSION['sinauid']))
+            <a href="/sinatui"><button class="sure" id="btn1">确定</button></a>
+            @else
+            <a href="/"><button class="sure" id="btn1">确定</button></a>
+            @endif
+            <a href=""><button class="reset" id="btn2">再想想</button></a>
+        </div>
+        </div>
+        <script src="script.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script>
+        //在此调用
+        
+        //划过头像点击退出弹出遮罩层
+        hoverFace({
+            "face":"#face",//头像元素的id
+            "exit":"#exit",//内容的id
+            "btn":"#btn",//退出按钮的id
+
+            "box":"#box"//遮罩盒子
+        })
+        </script>
+        
+
+        <!-- <div class="" style="float: right ;padding-top: 20px">
             
             @if (\Auth::check())
             {{ \Auth::user()->name }}   &nbsp;&nbsp;&nbsp;<a href="/logout">退出</a>
@@ -99,7 +331,7 @@ if(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid'])){
            
 
 
-        </div>
+        </div> -->
     </div>
 </div>
 
