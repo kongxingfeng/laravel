@@ -230,7 +230,7 @@
                         审核中
                         @endif
                     </li>
-                    <li>
+                    <li class="active">
                         @if($v->status==1)
                                     @if($v->bor_status==1)
                                                 已还钱
