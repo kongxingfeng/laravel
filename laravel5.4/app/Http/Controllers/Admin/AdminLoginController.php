@@ -36,12 +36,8 @@ class AdminLoginController extends Controller
         }
         else
         {
-            //return redirect('/adminindex');
             return \Redirect::back()->withErrors("用户名密码错误");
         }
-
-        //echo 1;
-
     }
 
     /**

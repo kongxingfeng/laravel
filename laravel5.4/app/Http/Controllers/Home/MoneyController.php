@@ -32,11 +32,8 @@ class MoneyController extends Controller {
         foreach ($list as $k=> $v) {
         	$sum_money+=$v->money;
         }
-        //echo $sum_money;exit;
         //计算30天日期
         $data = DB::select("select start_time,sum(money) as new_sum  from invest group by start_time ORDER BY start_time desc limit 0,30");
-       	// echo "<pre>";
-       	// print_r($data);
        	$new_time='';
        	$head='[';
         $foot=']';

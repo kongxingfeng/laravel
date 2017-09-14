@@ -11,18 +11,9 @@ namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
- 
 //引用对应的命名空间
 use Gregwar\Captcha\CaptchaBuilder;
 use Session;
-
-//use Illuminate\Support\Facades\Auth;
-
-//use Illuminate\Support\Facades\Auth;
-
-
-
-
 
 class CodeController extends Controller{
 

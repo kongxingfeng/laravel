@@ -25,9 +25,7 @@ class Sina2Controller extends Controller{
 		unset($_SESSION['sinauid']);
 		unset($_SESSION['screen_name']);
 		unset($_SESSION['profile_image_url']);
-		
-		// session_unset();
-		// session_destroy();
+	
 		return redirect('/');
 	}
 

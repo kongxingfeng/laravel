@@ -106,10 +106,9 @@ class ZeroController extends Controller {
     //添加图片
     public function img_add(Request $request)
     {     
-    	//$arr = array('img','img22');  
+    	
         $file=$request->file('img');
-      // $file2=$request->file('img22');
-        // dd($file2);exit;
+      
         //文件是否上传成功
         if($file->isValid()){   //判断文件是否上传成功
             $originalName = $file->getClientOriginalName(); //源文件名
@@ -128,11 +127,8 @@ class ZeroController extends Controller {
 
     }
      public function img_add2(Request $request)
-    {     
-    	//$arr = array('img','img22');  
+    {      
         $file=$request->file('img2');
-      // $file2=$request->file('img22');
-        // dd($file2);exit;
         //文件是否上传成功
         if($file->isValid()){   //判断文件是否上传成功
             $originalName = $file->getClientOriginalName(); //源文件名
