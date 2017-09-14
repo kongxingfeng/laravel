@@ -27,7 +27,8 @@
 <div class="zscf_con_wper pb30">
     <div class="zscf_con px1000">
         <div class="zscf_block1 mt30 ">
-            <h2 class="zscf_block1_tit clearfix"><span class="fl"><strong>发标预告</strong>换卡后放假啊客户看 将黑金卡号看见啊后防盗卡…… </span><a href="" class="fr">查看更多>></a></h2>
+           <h2 class="zscf_block1_tit clearfix"><span class="fl">
+           <a href="/zero"> <strong><span style="color:red">无抵押贷款上线啦</span></strong></a></span><a href="" class="fr">查看更多>></a></h2>
             <div class="clearfix clear">
                 <ul class="zscf_block1_text clearfix fl">
                     <li>

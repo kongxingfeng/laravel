@@ -14,9 +14,6 @@ use App\Http\Requests;
 use Request;
 use Illuminate\Support\Facades\Input;
 
-
-//use App\Models\Earnings;
-
 class InvestController extends Controller
 {
 
@@ -96,6 +93,7 @@ class InvestController extends Controller
             return view('invest/index',$arr);
         }
     }
+
 //    支付表单页面
     public function add()
     {
@@ -116,41 +114,48 @@ class InvestController extends Controller
      
         return view('invest/invest',$arr);
     }
+
     //支付添加页面
     public function invest()
     {
+        $request = Request::all();//接值
+        $id=$request['id'];
 
-        $request = Request::all();//接值 
+        if(empty($request['money'])){
+            return redirect("/add?id=$id");
+        }
+
         if(\Auth::check()){
 
-             $uid=\Auth::user()->id;
-        //获取用户的信息查看是否实名登录和余额是否充足
-             $arr = DB::table('users')
-            ->where('id',$uid)
-            ->get()
-            ->toArray();
-        //判断是否实名认证
-           if(!($arr[0]->idcard) && !($arr[0]->username)){
-               echo "<script>alert('请先实名认证');location.href='/ss'</script>";die;
-           }
-        //判断金钱是否充足
+            $uid=\Auth::user()->id;
+            //获取用户的信息查看是否实名登录和余额是否充足
+            $arr = DB::table('users')
+                ->where('id',$uid)
+                ->get()
+                ->toArray();
+            //判断是否实名认证
+            if(!($arr[0]->idcard) && !($arr[0]->username)){
+                echo "<script>alert('请先实名认证');location.href='/ss'</script>";die;
+            }
+            //判断金钱是否充足
             if($request['money']>$arr[0]->money){
                 echo "<script>alert('余额不足请先充值');location.href='/account'</script>";die;
             }
+
         }else{
 
             $uid=session('qid');
 
             $arr = DB::table('san')
-            ->where('qid',$uid)
-            ->get()
-            ->toArray();
-           
-        //判断是否实名认证
-           if(!($arr[0]->idcard) && !($arr[0]->username)){
-               echo "<script>alert('请先实名认证');location.href='/ss'</script>";die;
-           }
-        //判断金钱是否充足
+                ->where('qid',$uid)
+                ->get()
+                ->toArray();
+
+            //判断是否实名认证
+            if(!($arr[0]->idcard) && !($arr[0]->username)){
+                echo "<script>alert('请先实名认证');location.href='/ss'</script>";die;
+            }
+            //判断金钱是否充足
             if($request['money']>$arr[0]->money){
                 echo "<script>alert('余额不足请先充值');location.href='/account'</script>";die;
             }
@@ -169,35 +174,33 @@ class InvestController extends Controller
 
         if ($result) {
             if(\Auth::check()){
+                $uid=\Auth::user()->id;
 
-               $uid=\Auth::user()->id;
+                $users = DB::table('users')
+                    ->where('id',$uid)
+                    ->get()
+                    ->toArray();
 
-               $users = DB::table('users')
-                ->where('id',$uid)
-                ->get()
-                ->toArray();
-            
-           $money=$users[0]->money;
-           $newMoney=$money-$request['money'];
+                $money=$users[0]->money;
+                $newMoney=$money-$request['money'];
 //修改账户余额
-              DB::table('users')
-                ->where('id', $uid)
-                ->update(array('money' =>$newMoney));
+                DB::table('users')
+                    ->where('id', $uid)
+                    ->update(array('money' =>$newMoney));
 
             }else{
                 $uid=session('qid');
+                $users = DB::table('san')
+                    ->where('qid',$uid)
+                    ->get()
+                    ->toArray();
 
-               $users = DB::table('san')
-                ->where('qid',$uid)
-                ->get()
-                ->toArray();
-            
-           $money=$users[0]->money;
-           $newMoney=$money-$request['money'];
+                $money=$users[0]->money;
+                $newMoney=$money-$request['money'];
 //修改账户余额
-              DB::table('san')
-                ->where('qid', $uid)
-                ->update(array('money' =>$newMoney));
+                DB::table('san')
+                    ->where('qid', $uid)
+                    ->update(array('money' =>$newMoney));
             }
             echo "<script>alert('支付成功');location.href='/invest'</script>";
         } else {

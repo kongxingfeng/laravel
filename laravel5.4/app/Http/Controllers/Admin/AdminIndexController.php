@@ -28,8 +28,7 @@ class AdminIndexController extends Controller{
 			$arr=DB::table('borrow')->where('id',$bor_id)->first();
 			if($type==0)
 			{
-			
-				$nowtime = date("Y-m-d H:i:s");//审核时间
+				$nowtime = date("Y-m-d");//审核时间
 				$bor_etime=date("Y-m-d", strtotime("+".$arr->bor_month." months", strtotime($nowtime)));//还款时间
 				$info=DB::table('borrow')->where('id',$bor_id)->update(['status'=>'1','bor_time'=>$nowtime,'bor_etime'=>$bor_etime]);
 				if($info)

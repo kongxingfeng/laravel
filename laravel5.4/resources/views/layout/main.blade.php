@@ -34,17 +34,10 @@ if(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid'])){
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>首页</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <!-- <link rel="stylesheet/less" type="text/css" href="css/style.less" /> -->
     <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/all.js"></script>
     <!-- 在线客服 -->
     <script src='http://home.wolive.cc/assets/js/index/kefu_online.js'></script>
-       <!--[if IE 6]>
-    <script src="./js/iepng.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        EvPNG.fix('div, ul, img, li, input,span, p');
-    </script>
-    <![endif]-->
 </head>
 <style>
     
@@ -194,9 +187,7 @@ if(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid'])){
     }
     
 </style>
-
 <body>
-<!-- header start -->
 <div class="zxcf_top_wper">
     <div class="zxcf_top px1000 clearfix">
         <div class="zxcf_top_l fl">
@@ -223,11 +214,10 @@ if(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid'])){
 @endif
     </div>
 </div>
-<!-- end top -->
 <div class="zxcf_nav_wper">
     <div class="zxcf_nav clearfix px1000">
-        <div class="zxcf_nav_l fl" style="float:left"><img src="images/u=462566746,3822839051&fm=27&gp=0.jpg" alt="" width="450" height="80"></div>
-        <div class="wrap">
+        <div class="zxcf_nav_l fl"><img src="images/u=462566746,3822839051&fm=27&gp=0.jpg" alt="" width="450" height="80"></div>
+         <div class="wrap">
             <p class="face" id="face">
             @if (\Auth::check())
             <img src="images/zxcf_perinfo.png" alt="">
@@ -237,7 +227,6 @@ if(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid'])){
             <img src="{{$_SESSION['profile_image_url']}}">
             @else
             <img src="images/zxcf_perinfo.png" alt="">
-           <!--  <img src="images/1228.png" alt=""> -->
             @endif
             </p>
             <!--把以下内容放在头像元素的后面-->
@@ -278,7 +267,6 @@ if(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid'])){
                 <button id="btn" class="mybtn">安全退出</button>
             </div>
         </div>
-
         <div id="box" class="box">
         <div class="center" id="center">
             <h2>确定退出吗？</h2>
@@ -308,30 +296,6 @@ if(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid'])){
             "box":"#box"//遮罩盒子
         })
         </script>
-        
-
-        <!-- <div class="" style="float: right ;padding-top: 20px">
-            
-            @if (\Auth::check())
-            {{ \Auth::user()->name }}   &nbsp;&nbsp;&nbsp;<a href="/logout">退出</a>
-            @elseif(isset($_SESSION['qq_accesstoken']) || isset($_SESSION['qq_openid']))
-            
-            <ul class="list_01"><img src="{{$data['figureurl']}}">&nbsp;&nbsp;&nbsp;&nbsp;{{$data['nickname']}}</a>&nbsp;&nbsp;
-            <a href="/qqlogout">退出</a>
-            </ul>
-
-            @elseif(isset($_SESSION['sinauid']))
-              <img src="{{$_SESSION['profile_image_url']}}"> {{$_SESSION['screen_name']}}&nbsp;&nbsp;&nbsp;<a href="/sinatui">退出</a>
-            @else
-            <img src="images/zxcf_perinfo.png" alt="">
-                <span>未登录
-                    <img src="images/zxcf_icon01.png" alt=""></span>
-            
-            @endif
-           
-
-
-        </div> -->
     </div>
 </div>
 

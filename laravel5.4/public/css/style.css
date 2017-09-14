@@ -266,6 +266,59 @@ body {
 .fht {
   font-family: "黑体";
 }
+.bian {
+  padding: 15px;
+  position: relative;
+  left:100px;
+  top: 10px;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 5px;
+  width:800px;
+  height:750px;
+}
+.bian2 {
+  padding: 15px;
+  position: relative;
+  left:100px;
+  top: 10px;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 5px;
+  width:800px;
+  height:1000px;
+}
+
+.ww{
+   position: relative;
+    top:10px;
+  float: left;
+  line-height: 25px;
+  font-size: 16px;
+}
+.ww2{
+  position: relative;
+  right:400px;
+  top:10px;
+  float: right;
+  line-height: 25px;
+  font-size: 16px;
+}
+.ww3{
+  position: relative;
+  top:20px;
+ 
+  float: right;
+  line-height: 25px;
+  font-size: 16px;
+}
+.ww4{
+   position: relative;
+  top:110px;
+  right: 160px;
+  line-height: 25px;
+  font-size: 16px;
+}
 .number {
   font-family: Arial;
 }
@@ -981,6 +1034,30 @@ body {
   background: url("../images/2.png") no-repeat scroll center 0 #ffffff;
   height: 363px;
 }
+.zscf_banner_wper3 {
+  background: url("../images/3.png") no-repeat scroll center 0 #ffffff;
+  height: 363px;
+}
+.zscf_banner_wper4 {
+  width: 500px;
+  height: 700px;
+  position: relative;
+  left: 850px;
+  bottom: 750px;
+  background: url("../images/66.png") no-repeat scroll center 0 #ffffff;
+  
+}
+
+.zscf_banner_wper5{
+  width: 500px;
+  height: 700px;
+  position: relative;
+  left: 850px;
+  bottom: 985px;
+  background: url("../images/66.png") no-repeat scroll center 0 #ffffff;
+  
+}
+
 .zscf_banner {
   position: relative;
 }

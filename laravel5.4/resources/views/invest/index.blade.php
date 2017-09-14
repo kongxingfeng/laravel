@@ -10,11 +10,10 @@
                     <div class="clearfix fl">
                         <span class="product_curspan"><img src="images/invest_pic01.png"> 新手体验标</span>
                         <span><img src="images/invest_pic02.png"> 项目列表</span>
-                        <span><img src="images/invest_pic03.png"> 债权转让</span>
                     </div>
-
                 </h2>
-                <div class="product_box">
+                <div class="product_box2">
+
                     <div class="product_list">
                         <div class="invest_prochoose">
                             <p>
@@ -50,7 +49,9 @@
             </h3>
 
 
-            <div class="product_list mt20" id="box">
+
+            <div class="product_list mt20" id="box2">
+
                 @foreach($gain as $var)
                     <div class="prolist_one prolist_one_bl01 mt20">
                         <h2 class="prolist_one_tit"><span>产品</span>{{$var->g_name}}
@@ -84,52 +85,9 @@
 @endsection
 <script src="js/jq.js"></script>
 <script>
-    $(document).on('click','.limit',function(){
-        var box = $('#box');
-        var limit = $(this).attr('limit');
-        var page = $('.page').attr('page');
-        var earnings = '';
-        $('.earnings').each(function(){
-            if($(this).hasClass('inpro_cura')){
-                earnings = $(this).attr('earnings');
-            }
-        });
-        $.get('/invest',{limit:limit,page:page,limit:limit,earnings:earnings},function(msg){
-            if (msg==2) {
-                box.html('<h2 style="font-size: 45px;"  align="center">没有符合条件的数据</h2>');
-                return false;
-            } else {
-                var str = '';
-                for (var i in msg.gain) {
-                    str += '<div class="prolist_one prolist_one_bl01 mt20">';
-                    str += '<h2 class="prolist_one_tit"><span>产品</span>'+msg.gain[i]['g_name']+'</h2>';
-                    str += '<ul class="prolist_one_ul clearfix">';
-                    str += '<li>';
-                    str += '每月利息：<strong>'+msg.gain[i]['inter']+'</strong><br>';
-                    str += '描述：'+msg.gain[i]['note'];
-                    str += '</li>';
-                    str += '<li>期限：<i>'+msg.gain[i]['month']+'</i>个月<br>';
-                    str += '最少投资：'+msg.gain[i]['min_money']+'<i>元</i></li>';
-                    str += '<li class="prolist_btn">';
-                    str += '<a href="/add?id='+msg.gain[i]['id']+'" class="pro_btn" id="invest">立即投资</a>';
-                    str += '</li>';
-                    str += '</ul>';
-                    str += '</div>';
-                }
-                str += '<p class="pagelink" style="width: 400px">';
-                str +='<a href="javascript:void(0)" class="page" page="1">首页</a>';
-                str +='<a href="javascript:void(0)" class="page" page="'+msg.lastPage+'">上一页</a>';
-                str +='<a href="javascript:void(0)" class="page" page="'+msg.nextPage+'">下一页</a>';;
-                str +='<a href="javascript:void(0)" class="page" page="'+msg.page+'">尾页</a>';
-                str += '</p>';
-                box.html(str);
-            }
-        },'json');
-    });
-
     //    分页
     $(document).on('click','.page',function(){
-        var box = $('#box');
+        var box2 = $('#box2');
         var earnings = '';
         var limit = '';
         $('.limit').each(function(){
@@ -169,24 +127,25 @@
                 str +='<a href="javascript:void(0)" class="page" page="'+msg.nextPage+'">下一页</a>';;
                 str +='<a href="javascript:void(0)" class="page" page="'+msg.page+'">尾页</a>';
                 str += '</p>';
-                box.html(str);
+
+                box2.html(str);
             }
         },'json');
     });
 
-    $(document).on('click','.earnings',function(){
-        var box = $('#box');
-        var earnings = $(this).attr('earnings');
+    $(document).on('click','.limit',function(){
+        var box2 = $('#box2');
+        var limit = $(this).attr('limit');
         var page = $('.page').attr('page');
-        var limit = '';
-        $('.limit').each(function(){
+        var earnings = '';
+        $('.earnings').each(function(){
             if($(this).hasClass('inpro_cura')){
-                limit = $(this).attr('limit');
+                earnings = $(this).attr('earnings');
             }
         });
         $.get('/invest',{limit:limit,page:page,limit:limit,earnings:earnings},function(msg){
             if (msg==2) {
-                box.html('<h2 style="font-size: 45px;"  align="center">没有符合条件的数据</h2>');
+                box2.html('<h2 style="font-size: 45px;"  align="center">没有符合条件的数据</h2>');
                 return false;
             } else {
                 var str = '';
@@ -212,7 +171,50 @@
                 str +='<a href="javascript:void(0)" class="page" page="'+msg.nextPage+'">下一页</a>';;
                 str +='<a href="javascript:void(0)" class="page" page="'+msg.page+'">尾页</a>';
                 str += '</p>';
-                box.html(str);
+                box2.html(str);
+            }
+        },'json');
+    });
+
+    $(document).on('click','.earnings',function(){
+        var box2 = $('#box2');
+        var earnings = $(this).attr('earnings');
+        var page = $('.page').attr('page');
+        var limit = '';
+        $('.limit').each(function(){
+            if($(this).hasClass('inpro_cura')){
+                limit = $(this).attr('limit');
+            }
+        });
+        $.get('/invest',{limit:limit,page:page,limit:limit,earnings:earnings},function(msg){
+            if (msg==2) {
+                box2.html('<h2 style="font-size: 45px;"  align="center">没有符合条件的数据</h2>');
+                return false;
+            } else {
+                var str = '';
+                for (var i in msg.gain) {
+                    str += '<div class="prolist_one prolist_one_bl01 mt20">';
+                    str += '<h2 class="prolist_one_tit"><span>产品</span>'+msg.gain[i]['g_name']+'</h2>';
+                    str += '<ul class="prolist_one_ul clearfix">';
+                    str += '<li>';
+                    str += '每月利息：<strong>'+msg.gain[i]['inter']+'</strong><br>';
+                    str += '描述：'+msg.gain[i]['note'];
+                    str += '</li>';
+                    str += '<li>期限：<i>'+msg.gain[i]['month']+'</i>个月<br>';
+                    str += '最少投资：'+msg.gain[i]['min_money']+'<i>元</i></li>';
+                    str += '<li class="prolist_btn">';
+                    str += '<a href="/add?id='+msg.gain[i]['id']+'" class="pro_btn" id="invest">立即投资</a>';
+                    str += '</li>';
+                    str += '</ul>';
+                    str += '</div>';
+                }
+                str += '<p class="pagelink" style="width: 400px">';
+                str +='<a href="javascript:void(0)" class="page" page="1">首页</a>';
+                str +='<a href="javascript:void(0)" class="page" page="'+msg.lastPage+'">上一页</a>';
+                str +='<a href="javascript:void(0)" class="page" page="'+msg.nextPage+'">下一页</a>';;
+                str +='<a href="javascript:void(0)" class="page" page="'+msg.page+'">尾页</a>';
+                str += '</p>';
+                box2.html(str);
             }
         },'json');
     });

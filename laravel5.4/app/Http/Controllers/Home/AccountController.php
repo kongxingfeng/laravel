@@ -7,16 +7,15 @@
  */
 
 namespace App\Http\Controllers\Home;
-
-
+require (app_path() . '/Libs/alipay_submit.class.php');
 use App\Http\Controllers\Controller;
-
 use DB;
 use Request;
 use App\Http\Requests;
 
-class AccountController extends Controller {
-//ÎÒµÄÕË»§Ê×Ò³
+class AccountController extends Controller 
+{
+public $enableCsrfValidation=false;
     public function index()
     {
                
@@ -53,12 +52,10 @@ class AccountController extends Controller {
            $inid=array_unique($inid);
  
            $gain=DB::table('gain')->whereIn('id',$inid)->get();
-          
-
+           //抵押贷款
            $arr=DB::table('borrow')->where('user_id','=',"$user_id")->get();
-
-        
-   
+           //无抵押贷款
+           $zero=DB::table('zero')->where('user_id','=',"$user_id")->get();
         if(empty($data->toArray())&&empty($arr->toArray())){
 
             $rank='无操作';
@@ -74,14 +71,22 @@ class AccountController extends Controller {
 
             $rank='投资人和借款人';
         }
-
-        
+        $integral = DB::table('integral')
+            ->select('grade')
+            ->where('u_id',$user_id)
+            ->get();
+        $integralNums = '';
+        foreach ($integral as $var){
+            $integralNums +=$var->grade;
+        }
+        $integralNums = $integralNums == ''?0:$integralNums;
       
         if(\Auth::check()){
 
             $info=[ 
                 'invest'=>$data,
                 'borrow'=>$arr,
+                'zero'=>$zero,
                 'gain'=>$gain,
                 'img'=>$img,
                 'username'=>$user_info[0]->username,
@@ -91,26 +96,26 @@ class AccountController extends Controller {
                 'email'=>$user_info[0]->email,
                 'tel'=>$user_info[0]->tel,
                 'created_at'=>$user_info[0]->created_at,
-                'money'=>$user_info[0]->money
-                
+                'money'=>$user_info[0]->money,
+                'integralNums' => $integralNums
         ];
     }else{
 
          $info=[ 
                 'invest'=>$data,
                 'borrow'=>$arr,
+                'zero'=>$zero,
                 'gain'=>$gain,
                 'img'=>$img,
                 'username'=>$user_info[0]->username,
                 'idcard'=>$user_info[0]->idcard,
                 'rank'=>$rank,
                 'name'=>$user_info[0]->name,
-                'money'=>$user_info[0]->money
+                'money'=>$user_info[0]->money,
+                'integralNums' => $integralNums
                 
         ];
     }
-       
-         // print_r($info);die;
         return view('account/index',$info);
         
     }
@@ -142,7 +147,6 @@ class AccountController extends Controller {
                 ->where('qid', $user_id)
                 ->update(array('username' =>$name ,'idcard'=>$idcard));
         }
-
 //添加图片
          if($input['img']){
              
@@ -174,7 +178,6 @@ class AccountController extends Controller {
         
     }
    
-
 public function verify(){
         
          $input=Request::all();
@@ -185,4 +188,80 @@ public function verify(){
          echo $arr['reason'];
 
     }
+//支付
+public function pay()
+{
+   return view('account/pay');
+}  
+
+public function alipayapi()
+{
+    require_once "../public/zfb/alipay.config.php";
+
+    
+/**************************请求参数**************************/
+        //商户订单号，商户网站订单系统中唯一订单号，必填
+        $out_trade_no =rand(1,99999);
+
+        //订单名称，必填
+        $subject = "熊猫金融";
+
+        //付款金额，必填
+        $total_fee = 0.01;
+
+        //商品描述，可空
+        $body ="等级考试及";
+
+
+
+
+
+/************************************************************/
+
+//构造要请求的参数数组，无需改动
+$parameter = array(
+        "service"       => $alipay_config['service'],
+        "partner"       => $alipay_config['partner'],
+        "seller_id"  => $alipay_config['seller_id'],
+        "payment_type"  => $alipay_config['payment_type'],
+        "notify_url"    => $alipay_config['notify_url'],
+        "return_url"    => $alipay_config['return_url'],
+        
+        "anti_phishing_key"=>$alipay_config['anti_phishing_key'],
+        "exter_invoke_ip"=>$alipay_config['exter_invoke_ip'],
+        "out_trade_no"  => $out_trade_no,
+        "subject"   => $subject,
+        "total_fee" => $total_fee,
+        "body"  => $body,
+        "_input_charset"    => trim(strtolower($alipay_config['input_charset']))
+        //其他业务参数根据在线开发文档，添加参数.文档地址:https://doc.open.alipay.com/doc2/detail.htm?spm=a219a.7629140.0.0.kiX33I&treeId=62&articleId=103740&docType=1
+        //如"参数名"=>"参数值"
+        
+);
+
+
+//建立请求
+$alipaySubmit = new \AlipaySubmit($alipay_config);
+
+$html_text = $alipaySubmit->buildRequestForm($parameter,"get", "确认");
+echo $html_text;
+
+ }
+
+    //修改还钱
+    public function bor_status(){
+                        $bor_status=$_GET['bor_status'];//状态
+                        $bor_id= $_GET['bor_id'];//操作ID
+                        $bor_type=$_GET['bor_type'];//是否有抵押
+                        if($bor_type=="无抵押"){
+                            $info=DB::table('zero')->where('id',$bor_id)->update(['bor_status'=>'1']);
+                        }else{
+                            $info=DB::table('borrow')->where('id',$bor_id)->update(['bor_status'=>'1']);
+                        }
+                        
+                        if($info)
+                        {
+                            echo 1;
+                        }
+            }
 }

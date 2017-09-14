@@ -26,15 +26,18 @@
                         <form action="/invest/invest" method="post" onsubmit="return check_submit()">
                             {{ csrf_field() }}
                             <li>
-                                投资金额<input type="text" id="money" name="money" placeholder="最少投资{{$one->min_money}}元" onblur="_money()"><i>元</i>
+                                投资金额&nbsp;&nbsp;&nbsp;<input type="text" id="money" name="money" placeholder="最少投资{{$one->min_money}}元" onblur="_money()"><i>元</i>
                             </li>
                             <li>
                                 <input type="hidden" name="end_time" value="{{$one->month}}">
                                 <span style="margin-left: 30px" id="inter_money"></span>
                             </li>
-                            <li class="prolist_press">
+                            <li>
                                 <input type="hidden" name="id" value="{{$one->id}}">
-                                <input type="submit" value="确认支付"  id="sub" onclick="sub()">
+                                <button type="submit" id="sub" onclick="sub()" >
+                                    <span>确认支付</span>
+                                </button>
+                                {{--<input type="submit" id="sub" onclick="sub()" value="确认支付">--}}
                             </li>
                             <li class="prolist_btn">
                             </li>
@@ -48,6 +51,72 @@
     </div>
     <!-- footer start -->
 @endsection
+<style>
+    button {
+        font-family: 'Hind Guntur', sans-serif;
+        font-size: 15px;
+        color: #fff;
+        letter-spacing: 0.025em;
+
+        background: #379aff;
+        padding: 11px 0 11px;
+        cursor: pointer;
+        border: 0;
+        border-radius: 2px;
+        min-width: 80px;
+        overflow: hidden;
+
+        position: absolute;
+    }
+
+    button span {
+        display: block;
+        position: relative;
+        z-index: 10;
+    }
+
+    button:after,
+    button:before {
+        padding: 18px 0 11px;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: calc(-100% - 30px);
+        height: calc(100% - 29px);
+        width: calc(100% + 20px);
+        color: #fff;
+        border-radius: 2px;
+        -webkit-transform: skew(-25deg);
+        transform: skew(-25deg);
+    }
+
+    button:after {
+        background: #fff;
+        -webkit-transition: left 0.8s cubic-bezier(0.86, 0, 0.07, 1) 0.2s;
+        transition: left 0.8s cubic-bezier(0.86, 0, 0.07, 1) 0.2s;
+        z-index: 0;
+        opacity: 0.8;
+    }
+
+    button:before {
+        background: #13c276;
+        z-index: 5;
+        -webkit-transition: left 1s cubic-bezier(0.86, 0, 0.07, 1);
+        transition: left 1s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+
+    button:hover:after {
+        left: calc(0% - 10px);
+        -webkit-transition: left 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+        transition: left 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+
+    button:hover:before {
+        left: calc(0% - 10px);
+        -webkit-transition: left 1s cubic-bezier(0.86, 0, 0.07, 1);
+        transition: left 1s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+</style>
 <script>
     function _money(){
         var _value = document.getElementById('money').value;

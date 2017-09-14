@@ -115,13 +115,13 @@
                          @endif
                     </div>
                     <div class="name-meg">
-                        <p><span>您的积分为：</span></p>
+                        <p>您的积分为：<span id='integralNums'>{{$integralNums}}</span>分</p>
                          <p>
                             <span>账户余额：</span> 
                             {{$money}} 元
                          </p>
                          <p>
-                            <a href="#">充值</a>
+                            <a href="/pay">充值</a>
                             <a href="#">提现</a>
                          </p>
                     </div>
@@ -196,6 +196,7 @@
                </div>
                 <div class="product_list" style="display:none;">
                   <div class="invest_prochoose">
+                  抵押贷款:
                   <ul class="menu">
                     <li class="active">编号</li>
                     <li>借款金额</li>
@@ -205,6 +206,7 @@
                     <li>抵押物</li>
                     <li class="active">数量</li>
                     <li>审核状态</li>
+                    <li class="active">操作</li>
                 </ul>
                 @if(!empty($borrow->toArray()))
                 @foreach($borrow as $v)
@@ -229,6 +231,64 @@
                         审核中
                         @endif
                     </li>
+                    <li class="active">
+                        @if($v->status==1)
+                                    @if($v->bor_status==1)
+                                                已还钱
+                                    @else 
+                                                       <span class="bor_status" id="{{$v->id}}" bor_type="{{$v->bor_type}}"  bor_status="{{$v->bor_status}}">还钱</span>
+                                    @endif
+                        @else 
+                        审核中
+                        @endif
+                    </li>
+                </ul>
+                @endforeach
+                @else 暂无操作
+                @endif
+                 <br>
+                 无抵押贷款:
+                  <ul class="menu">
+                    <li class="active">编号</li>
+                    <li>借款金额</li>
+                    <li class="active">借款期限</li>
+                    <li>到期还款金额</li>
+                    <li class="active">下款时间</li>
+                    <li>审核状态</li>
+                    <li class="active">操作</li>
+                </ul>
+                  @if(!empty($zero->toArray()))
+                @foreach($zero as $v)
+                <ul class="menu">
+                    <li class="active">{{$v->id}}</li>
+                    <li>{{$v->bor_money}}万元</li>
+                    <li class="active">{{$v->bor_month}}个月</li>
+                    <li>{{$v->bor_qian}}元</li>
+                    <li class="active">
+                        @if($v->status==1)
+                        {{$v->bor_time}}
+                        @else 
+                        正在审核
+                        @endif
+                    </li>
+                    <li>
+                        @if($v->status==1)
+                        已审核
+                        @else 
+                        审核中
+                        @endif
+                    </li>
+                    <li class="active">
+                        @if($v->status==1)
+                                    @if($v->bor_status==1)
+                                                已还钱
+                                    @else 
+                                                       <span class="bor_status" id="{{$v->id}}" bor_type="{{$v->bor_type}}"  bor_status="{{$v->bor_status}}">还钱</span>
+                                    @endif
+                        @else 
+                        审核中
+                        @endif
+                    </li>
                 </ul>
                 @endforeach
                 @else 暂无操作
@@ -242,4 +302,46 @@
         </div>
     </div>
 </div>
+<script src="js/jq.js"></script>
+    <script>
+        $(document).on('click','.bor_status',function(){
+            var obj = $(this);
+            var bor_status=obj.attr('bor_status');
+            var bor_id=obj.attr('id');
+            var bor_type=obj.attr('bor_type');
+           
+            $.ajax({
+                type: "GET",
+                url: "/account/bor_status",
+                data: {bor_status:bor_status,bor_id:bor_id,bor_type:bor_type},
+
+                success: function(msg){
+                    if(msg)
+                    {
+                      
+                         obj.html('已还钱');
+                        obj.attr('bor_status',1);
+                    }
+                   
+                }
+            });
+        });
+
+        {{--签到--}}
+        $(document).on('click','.qian',function(){
+            var integralNums = $('#integralNums');
+            $.get('/integral/add',function(msg){
+                if(msg == -2) {
+                    alert('签到成功');
+                    return false;
+                } else if(msg == -4) {
+                    alert('今天已经签到了');
+                    return false;
+                } else{
+                    alert('签到成功');
+                    integralNums.html(msg);
+                }
+            },'json');
+        });
+    </script>
 @endsection
